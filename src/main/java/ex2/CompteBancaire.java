@@ -31,7 +31,6 @@ public class CompteBancaire {
      * @param type
      */
     public CompteBancaire(String type, double solde, double decouvert) {
-        super();
         this.type = type;
         this.solde = solde;
         this.decouvert = decouvert;
@@ -47,7 +46,6 @@ public class CompteBancaire {
      * @param tauxRemuneration représente le taux de rémunération du livret A
      */
     public CompteBancaire(String type, double solde, double decouvert, double tauxRemuneration) {
-        super();
         this.type = type;
         this.solde = solde;
         this.decouvert = decouvert;

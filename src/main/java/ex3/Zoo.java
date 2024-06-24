@@ -1,47 +1,56 @@
 package ex3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Zoo {
 
     private String nom;
-    private List<String> types;
-    private List<String> noms;
-    private List<String> comportements;
+    private List<Animal> animaux;
 
     public Zoo(String nom) {
         this.nom = nom;
-    }
-
-    public void addAnimal(String nomAnimal, String typeAnimal, String comportement) {
-        types.add(typeAnimal);
-        noms.add(nomAnimal);
-        comportements.add(comportement);
-    }
-
-    public void afficherListeAnimaux() {
-        for (int i = 0; i < types.size(); i++) {
-            System.out.println(noms.get(i) + " " + types.get(i) + " " + comportements.get(i));
-        }
-    }
-
-    public int taille() {
-        return types.size();
+        this.animaux = new ArrayList<>();
     }
 
     /**
-     * Getter for nom
+     * Affichage des animaux dans la console
+     */
+    public void ajouterAnimal(String nomAnimal, String typeAnimal, String comportement) {
+        Animal animal = new Animal(nomAnimal, typeAnimal, comportement);
+        animaux.add(animal);
+
+    }
+
+    /**
+     * Affichage des animaux dans la console
+     */
+    public void afficherListeAnimaux() {
+        this.animaux.stream().forEach(animal -> System.out.println(animal));
+    }
+
+    /**
+     * Getter pour le nombre d'animaux
      *
-     * @return the nom
+     * @return le nombre d'animaux
+     */
+    public int getNombreAnimaux() {
+        return animaux.size();
+    }
+
+    /**
+     * Getter pour le nom du zoo
+     *
+     * @return le nom du zoo
      */
     public String getNom() {
         return nom;
     }
 
     /**
-     * Setter
+     * Setter pour le nom du zoo
      *
-     * @param nom the nom to set
+     * @param nom le nouveau nom du zoo
      */
     public void setNom(String nom) {
         this.nom = nom;
