@@ -1,58 +1,36 @@
 package ex5;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Caisse {
+    private Map<Item, Integer> items = new HashMap<>();
+    private double total = 0;
 
-    private String nom;
-    private List<Item> items;
-
-    /**
-     * Constructeur
-     *
-     * @param nom
-     */
-    public Caisse(String nom) {
-        super();
-        this.nom = nom;
-        this.items = new ArrayList<>();
+    public void ajouterItem(Item item, int quantite) {
+        items.put(item, items.getOrDefault(item, 0) + quantite);
+        calculerTotal();
     }
 
-    /**
-     * Getter pour l'attribut nom
-     *
-     * @return the nom
-     */
-    public String getNom() {
-        return nom;
+    public void supprimerItem(Item item, int quantite) {
+        if (items.containsKey(item)) {
+            int nouvelleQuantite = items.get(item) - quantite;
+            if (nouvelleQuantite > 0) {
+                items.put(item, nouvelleQuantite);
+            } else {
+                items.remove(item);
+            }
+            calculerTotal();
+        }
     }
 
-    /**
-     * Setter pour l'attribut nom
-     *
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
+    public double getTotal() {
+        return total;
     }
 
-    /**
-     * Getter pour l'attribut items
-     *
-     * @return the items
-     */
-    public List<Item> getItems() {
-        return items;
+    private void calculerTotal() {
+        total = 0;
+        for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+            total += entry.getKey().getPrix() * entry.getValue();
+        }
     }
-
-    /**
-     * Setter pour l'attribut items
-     *
-     * @param items the items to set
-     */
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
 }

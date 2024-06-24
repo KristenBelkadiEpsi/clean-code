@@ -1,36 +1,46 @@
 package ex5;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Inventaire {
+    private Map<Item, Integer> stock = new HashMap<>();
 
-    private List<Caisse> caisses;
-
-    public Inventaire() {
-        caisses = new ArrayList<>();
-        caisses.add(new Caisse("Petits objets"));
-        caisses.add(new Caisse("Moyens objets"));
-        caisses.add(new Caisse("Grands objets"));
+    /**
+     * Ajoute une quantitée d'item dans le stock d'inventaire.
+     *
+     * @param item     l'item à ajouter
+     * @param quantite la quantitée d'item à ajouter
+     */
+    public void ajouterItem(Item item, int quantite) {
+        stock.put(item, stock.getOrDefault(item, 0) + quantite);
     }
 
-    public void addItem(Item item) {
-
-        //TODO Faites évoluer ce code (idée: c'est le caisse qui doit "savoir" si elle peut accepter un objet ou non)
-        if (item.getPoids() < 5) {
-            caisses.get(0).getItems().add(item);
-        }
-        if (item.getPoids() >= 5 && item.getPoids() <= 20) {
-            caisses.get(1).getItems().add(item);
-        }
-        if (item.getPoids() >= 20) {
-            caisses.get(2).getItems().add(item);
+    /**
+     * Supprime une quantitée d'item dans le stock d'inventaire.
+     *
+     * @param item     l'item à supprimer
+     * @param quantite la quantitée d'item à supprimer
+     */
+    public void supprimerItem(Item item, int quantite) {
+        if (stock.containsKey(item)) {
+            int nouvelleQuantite = stock.get(item) - quantite;
+            if (nouvelleQuantite > 0) {
+                stock.put(item, nouvelleQuantite);
+            } else {
+                stock.remove(item);
+            }
         }
     }
 
-    public int taille() {
-
-        //TODO faites évoluer ce code.
-        return caisses.get(0).getItems().size() + caisses.get(1).getItems().size() + caisses.get(2).getItems().size();
+    /**
+     * return la quantitée d'un item
+     *
+     * @param item l'item dont on veut récupérer la quantitée
+     * @return la quantitée  de l'item, si l'item n'existe pas renvoie la valeur 0.
+     */
+    public int getQuantite(Item item) {
+        return stock.getOrDefault(item, 0);
     }
 }
+
